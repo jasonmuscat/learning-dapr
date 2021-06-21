@@ -1,5 +1,11 @@
 # Dapr .NET Weather service invocation example
 
+graph TD;
+A-->B;
+A-->C;
+B-->D;
+
+
 ## Prerequisites
 
 - [.NET Core 3.1 or .NET 5+](https://dotnet.microsoft.com/download) installed
