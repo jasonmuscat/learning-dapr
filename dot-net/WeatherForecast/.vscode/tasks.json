@@ -1,0 +1,145 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/FrontEnd/FrontEnd.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/FrontEnd/FrontEnd.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/FrontEnd/FrontEnd.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "wf-service",
+            "command": "dapr",
+            "args": [
+                "run",
+                "--app-id",
+                "weatherforecastservice",
+                "--app-port",
+                "5000",
+                "--dapr-http-port",
+                "3500",
+                "--app-ssl",
+                "dotnet",
+                "run",
+                "--",
+                "--urls=https://localhost:5000/",
+                "-p",
+                "Service.WeatherForecast/Service.WeatherForecast.csproj"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build"
+        },
+        {
+            "label": "wf-proxy",
+            "command": "dapr",
+            "args": [
+                "run",
+                "--app-id",
+                "frontendproxy",
+                "--app-port",
+                "5001",
+                "--dapr-http-port",
+                "3501",
+                "--app-ssl",
+                "dotnet",
+                "run",
+                "--",
+                "--urls=https://localhost:5001/",
+                "-p",
+                "FrontEnd.Proxy/FrontEnd.Proxy.csproj"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "wf-service"
+        },
+        {
+            "label": "wf-frontend",
+            "command": "dapr",
+            "args": [
+                "run",
+                "--app-id",
+                "weatherforecastclient",
+                "--",
+                "dotnet",
+                "run",
+                "2",
+                "-p",
+                "FrontEnd/FrontEnd.csproj"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "wf-proxy"
+        }
+    ]
+}
