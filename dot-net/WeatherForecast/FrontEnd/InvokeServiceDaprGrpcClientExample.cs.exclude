@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 using Dapr.Client;
 
-using WeatherForecastService;
+using WeatherForecast.Service;
 
 
-namespace WeatherForecastFrontEnd
+namespace WeatherForecast.FrontEnd
 {
 
-    public class InvokeServiceDaprHttpExample : InvokeExample
+    public class InvokeServiceDaprGrpcExample : InvokeExample
     {
         public override string DisplayName => "Invoking an HTTP service with the Dapr Client via Http";
 
@@ -27,7 +27,7 @@ namespace WeatherForecastFrontEnd
 
             // Invokes a GET method named "weatherforecast"
             Console.WriteLine("Invoking weatherforecast");
-            var weatherForecasts = await client.InvokeMethodAsync<List<WeatherForecast>>(HttpMethod.Get, "weatherforecastservice", "weatherforecast",cancellationToken);
+            var weatherForecasts = await client.InvokeMethodGrpcAsync<List<WeatherForecast.Service.WeatherForecast>>("weatherforecastservice", "weatherforecast",cancellationToken);
 
             foreach (var weatherForecast in weatherForecasts)
             {

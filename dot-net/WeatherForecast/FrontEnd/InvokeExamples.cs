@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WeatherForecastFrontEnd
+namespace WeatherForecast.FrontEnd
 {
     public abstract class InvokeExample 
     {

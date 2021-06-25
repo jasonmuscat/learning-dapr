@@ -7,10 +7,10 @@ using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-using WeatherForecastService;
+using WeatherForecast.DTO;
 
 
-namespace WeatherForecastFrontEnd
+namespace WeatherForecast.FrontEnd
 {
 
     public class InvokeServiceHttpExample : InvokeExample
@@ -25,7 +25,7 @@ namespace WeatherForecastFrontEnd
 
             // Invokes a GET method named "weatherforecast"
             Console.WriteLine("Invoking weatherforecast");
-            var weatherForecasts = await client.GetFromJsonAsync<List<WeatherForecast>> ("http://localhost:3500/v1.0/invoke/weatherforecastservice/method/weatherforecast");
+            var weatherForecasts = await client.GetFromJsonAsync<List<WeatherForecast.DTO.WeatherForecast>> ("http://localhost:3500/v1.0/invoke/weatherforecastservice/method/weatherforecast");
 
             foreach (var weatherForecast in weatherForecasts)
             {

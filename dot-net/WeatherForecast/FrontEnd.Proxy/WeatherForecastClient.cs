@@ -4,9 +4,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-using WeatherForecastService;
+using WeatherForecast.DTO;
 
-namespace WeatherForecastFrontEndProxyService
+namespace WeatherForecast.FrontEnd.Proxy
 {
     public class WeatherForecastClient : IWeatherForecastClient
     {
@@ -17,10 +17,10 @@ namespace WeatherForecastFrontEndProxyService
             _backendHttpClient = backendHttpClient;
         }
 
-        public async Task<IEnumerable<WeatherForecast>> GetWeatherForecast(int count)
+        public async Task<IEnumerable<WeatherForecast.DTO.WeatherForecast>> GetWeatherForecast(int count)
         {
             var weatherForecasts =
-                await _backendHttpClient.GetFromJsonAsync<List<WeatherForecast>>("weatherforecastservice");
+                await _backendHttpClient.GetFromJsonAsync<List<WeatherForecast.DTO.WeatherForecast>>("weatherforecastservice");
 
             return weatherForecasts?.Take(count);
         }

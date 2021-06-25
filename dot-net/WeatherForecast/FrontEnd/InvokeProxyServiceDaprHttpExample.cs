@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 using Dapr.Client;
 
-using WeatherForecastService;
+using WeatherForecast.DTO;
 
 
-namespace WeatherForecastFrontEnd
+namespace WeatherForecast.FrontEnd
 {
 
     public class InvokeProxyServiceDaprHttpExample : InvokeExample
@@ -22,12 +22,11 @@ namespace WeatherForecastFrontEnd
         public override async Task RunAsync(CancellationToken cancellationToken)
         {
 
-
             using var client = new DaprClientBuilder().Build();
 
             // Invokes a GET method named "weatherforecast"
             Console.WriteLine("Invoking weatherforecast proxy");
-            var weatherForecasts = await client.InvokeMethodAsync<List<WeatherForecast>>(HttpMethod.Get, "frontendproxy", "weatherforecast",cancellationToken);
+            var weatherForecasts = await client.InvokeMethodAsync<List<WeatherForecast.DTO.WeatherForecast>>(HttpMethod.Get, "frontendproxy", "weatherforecast", cancellationToken);
 
             foreach (var weatherForecast in weatherForecasts)
             {

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace WeatherForecastService
+namespace WeatherForecast.Service
 {
     public class Startup
     {

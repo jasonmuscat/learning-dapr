@@ -13,9 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 using Dapr.Client;
-using WeatherForecastService;
 
-namespace WeatherForecastFrontEndProxyService
+namespace WeatherForecast.FrontEnd.Proxy
 {
     public class Startup
     {

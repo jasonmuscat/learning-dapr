@@ -9,25 +9,24 @@ using System.Threading.Tasks;
 
 using Dapr.Client;
 
-using WeatherForecastService;
+using WeatherForecast.DTO;
 
 
-namespace WeatherForecastFrontEnd
+namespace WeatherForecast.FrontEnd
 {
 
-    public class InvokeServiceDaprGrpcExample : InvokeExample
+    public class InvokeServiceDaprHttpExample : InvokeExample
     {
         public override string DisplayName => "Invoking an HTTP service with the Dapr Client via Http";
 
         public override async Task RunAsync(CancellationToken cancellationToken)
         {
 
-
             using var client = new DaprClientBuilder().Build();
 
             // Invokes a GET method named "weatherforecast"
             Console.WriteLine("Invoking weatherforecast");
-            var weatherForecasts = await client.InvokeMethodGrpcAsync<List<WeatherForecast>>("weatherforecastservice", "weatherforecast",cancellationToken);
+            var weatherForecasts = await client.InvokeMethodAsync<List<WeatherForecast.DTO.WeatherForecast>>(HttpMethod.Get, "weatherforecastservice", "weatherforecast",cancellationToken);
 
             foreach (var weatherForecast in weatherForecasts)
             {
